@@ -52,12 +52,10 @@ namespace GrouponJobsMVC.Controllers
             }
             if (!string.IsNullOrEmpty(language))
             {
-                
+                candidate = candidate.Where(a => a.Language.FirstOrDefault(x => x.LanguageId == int.Parse(language)) != null).ToList();
             }
             if (!string.IsNullOrEmpty(fluency))
-            {
-
-            }
+                candidate = candidate.Where(x => x.Language.FirstOrDefault(c => c.Fluency == int.Parse(fluency)) != null).ToList();
 
 
             ViewData["Address.CityId"] = CandidateDropDown.City();

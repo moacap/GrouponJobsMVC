@@ -186,7 +186,6 @@ namespace GrouponJobsMVC.Views.Candidate
         public static List<SelectListItem> Fluency(int value)
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            //items.Add(new SelectListItem { Text = "None", Value = "0", Selected = value == 0 });
             items.Add(new SelectListItem { Text = "Basico", Value = "0", Selected = value == 0 });
             items.Add(new SelectListItem { Text = "Intermediario", Value = "1", Selected = value == 1 });
             items.Add(new SelectListItem { Text = "Avançado", Value = "2", Selected = value == 2 });
