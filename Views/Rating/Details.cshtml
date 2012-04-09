@@ -1,0 +1,19 @@
+﻿@model GrouponJobsMVC.Models.Rating
+
+@{
+    ViewBag.Title = "Details Rating";
+}
+
+<h2>Details Rating</h2>
+
+<fieldset>
+    <legend>Rating</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">@Model.Name</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RatingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

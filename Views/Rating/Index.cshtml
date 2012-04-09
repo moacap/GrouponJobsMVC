@@ -1,0 +1,33 @@
+﻿@model IEnumerable<GrouponJobsMVC.Models.Rating>
+
+@{
+    ViewBag.Title = "Index Rating";
+}
+
+<h2>Index Rating</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Rate
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RatingId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.RatingId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.RatingId })
+        </td>
+        <td>
+            @item.Name
+        </td>
+    </tr>
+}
+
+</table>

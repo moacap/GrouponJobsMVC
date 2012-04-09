@@ -1,0 +1,168 @@
+﻿@model GrouponJobsMVC.Models.Candidate
+@{
+    ViewBag.Title = "Delete Candidate";
+}
+<h1>
+    Delete Candidate</h1>
+<h1>
+    Are you sure you want to delete this?</h1>
+<fieldset>
+   <legend>Candidate</legend>
+    <div class="display-label">
+        First Name</div>
+    <div class="display-field">@Model.FirstName</div>
+    <div class="display-label">
+        Last Name</div>
+    <div class="display-field">@Model.LastName</div>
+    <div class="display-label">
+        Email</div>
+    <div class="display-field">@Model.Email</div>
+    <div class="display-label">
+        Home Phone</div>
+    <div class="display-field">@Model.HomePhone</div>
+    <div class="display-label">
+        Mobile Phone</div>
+    <div class="display-field">@Model.MobilePhone</div>
+    @if (Model.Gender == 0)
+    {
+        <div class="display-label">
+            Gender</div>
+        <div class="display-field">
+            Masculino</div>
+    }
+    else
+    {
+        <div class="display-label">
+            Gender</div>
+        <div class="display-field">
+            Feminino</div>
+    }
+    @if (Model.WillTravel == 0)
+    {
+        <div class="display-label">
+            Will Travel</div>
+        <div class="display-field">
+            Sim</div>
+    }
+    else
+    {
+        <div class="display-label">
+            Will Travel</div>
+        <div class="display-field">
+            Não</div>
+    }
+    <div class="display-label">
+        Last Salary</div>
+    <div class="display-field">@String.Format("{0:F}", Model.LastSalary)</div>
+    <div class="display-label">
+        Salary Expectation</div>
+    <div class="display-field">@String.Format("{0:F}", Model.SalaryExpectation)</div>
+    <div class="display-label">
+        Requisition</div>
+    <div class="display-field">@Model.Requisition.Title</div>
+    <div class="display-label">
+        Street Name</div>
+    <div class="display-field">@Model.Address.Name</div>
+    <div class="display-label">
+        Neighbourhood</div>
+    <div class="display-field">@Model.Address.Neighbourhood</div>
+    <div class="display-label">
+        City</div>
+    <div class="display-field">@Model.Address.City.Name</div>
+    <div class="display-label">
+        Disposition</div>
+    <div class="display-field">@Model.Disposition.Name</div>
+    <div class="display-label">
+        Marital Status</div>
+    <div class="display-field">@Model.MaritalStatus.Name</div>
+    <div class="display-label">
+        Rating</div>
+    <div class="display-field">@Model.Rating.Name</div>
+    @{ var count = 0; }
+    @foreach (var item in Model.Company)
+    {
+        <h1>
+            Company
+            @{count++;
+            }
+            @count
+        </h1>
+        <div class="display-label">
+            Company Name
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Name)
+        </div>
+        <div class="display-label">
+            City Company
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Address.City.Name)
+        </div>
+        <div class="display-label">
+            Salary
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Salary)
+        </div>
+    }
+    @{ count = 0; }
+    @foreach (var item in Model.Courses)
+    {
+        <h1>
+            Courses
+            @{ count++;
+            }
+            @count
+        </h1>
+        
+           if (item.Graduate == 0)
+           {
+        <div class="display-label">
+            Graduate</div>
+        <div class="display-field">
+            Sim</div>
+           }
+           else
+           {
+        <div class="display-label">
+            Graduate</div>
+        <div class="display-field">
+            Não</div>
+           }
+        
+        
+        <div class="display-label">
+            Course Name
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Name)
+        </div>
+        <div class="display-label">
+            School Name
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.SchoolName)
+        </div>
+        <div class="display-label">
+            Course Start
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.Start.Year)
+        </div>
+        <div class="display-label">
+            Course End
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => item.End.Year)
+        </div>
+    }
+</fieldset>
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Delete" />
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

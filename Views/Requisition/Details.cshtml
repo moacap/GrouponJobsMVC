@@ -1,0 +1,34 @@
+﻿@model GrouponJobsMVC.Models.Requisition
+
+@{
+    ViewBag.Title = "Details Requisition";
+}
+
+<h2>Details Requisition</h2>
+
+<fieldset>
+    <legend>Requisition</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">@Model.Title</div>
+
+    <div class="display-label">Small Description</div>
+    <div class="display-field">@Model.SmallDescription</div>
+
+    <div class="display-label">Big Description</div>
+    <div class="display-field">@Model.BigDescription</div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">@Model.Address.Name</div>
+
+    <div class="display-label">Recruiter</div>
+    <div class="display-field">@Model.Recruiter.Name</div>
+
+    <div class="display-label">Category</div>
+    <div class="display-field">@Model.Category.Name</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RequisitionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<GrouponJobsMVC.Models.Requisition>
+@{
+    ViewBag.Title = "Requisition Index";
+}
+<h2>
+    Requisition Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@{
+    var grid = new WebGrid(Model, canPage: true, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.NextPrevious);
+        
+    @grid.GetHtml(tableStyle: "webgrid", columns: grid.Columns(grid.Column("Title", "Title"),
+        grid.Column("Category.Name", "Name"),
+        grid.Column("Address.City.Name", "City"),
+        grid.Column("Recruiter.Name", "Recruiter"),
+        grid.Column("CandidateCount", "Active Candidates"),
+        grid.Column(format: @<text>
+    @Html.ActionLink("Edit", "Edit", new { id = item.RequisitionId }) |
+    @Html.ActionLink("Details", "Details", new { id = item.RequisitionId }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.RequisitionId })
+    </text>)
+        ));
+}

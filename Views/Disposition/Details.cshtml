@@ -1,0 +1,19 @@
+﻿@model GrouponJobsMVC.Models.Disposition
+
+@{
+    ViewBag.Title = "Details Disposition";
+}
+
+<h2>Details Disposition</h2>
+
+<fieldset>
+    <legend>Disposition</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">@Model.Name</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DispositionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<GrouponJobsMVC.Models.Recruiter>
+
+@{
+    ViewBag.Title = "Index Recruiter";
+}
+
+<h2>Index Recruiter</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@{
+    var grid = new WebGrid(Model, canPage: true, rowsPerPage: 10);
+    grid.Pager(WebGridPagerModes.NextPrevious);
+        
+    @grid.GetHtml(tableStyle: "webgrid", columns: grid.Columns(grid.Column("Name", "Name"),
+        grid.Column("Email", "Email"),
+        grid.Column(format: @<text>
+    @Html.ActionLink("Edit", "Edit", new { id = item.RecruiterId }) |
+    @Html.ActionLink("Details", "Details", new { id = item.RecruiterId }) |
+    @Html.ActionLink("Delete", "Delete", new { id = item.RecruiterId })
+    </text>)
+        ));
+}

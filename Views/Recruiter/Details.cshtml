@@ -1,0 +1,22 @@
+﻿@model GrouponJobsMVC.Models.Recruiter
+
+@{
+    ViewBag.Title = "Details Recruiter";
+}
+
+<h2>Details Recruiter</h2>
+
+<fieldset>
+    <legend>Recruiter</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">@Model.Name</div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">@Model.Email</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RecruiterId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+

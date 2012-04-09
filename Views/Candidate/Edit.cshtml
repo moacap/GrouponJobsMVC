@@ -1,0 +1,304 @@
+﻿@model GrouponJobsMVC.Models.Candidate
+@{
+    ViewBag.Title = "Edit a Candidate";
+}
+<h2>
+    Edit</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Candidate</legend>
+        @Html.HiddenFor(model => model.CandidateId)
+        @Html.HiddenFor(model => model.AddressId)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName, "First Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName, "Last Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email, "E-Mail")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Birthday, "Birthday")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Birthday)
+            @Html.ValidationMessageFor(model => model.Birthday)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomePhone, "Home Phone")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomePhone)
+            @Html.ValidationMessageFor(model => model.HomePhone)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MobilePhone, "Mobile Phone")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MobilePhone)
+            @Html.ValidationMessageFor(model => model.MobilePhone)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Gender", GrouponJobsMVC.Views.Candidate.CandidateDropDown.Gender(Model.Gender))
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WillTravel)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("WillTravel", GrouponJobsMVC.Views.Candidate.CandidateDropDown.WillTravel(Model.WillTravel))
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastSalary, "Last Salary")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastSalary)
+            @Html.ValidationMessageFor(model => model.LastSalary)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SalaryExpectation, "Salary Expectation")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SalaryExpectation)
+            @Html.ValidationMessageFor(model => model.SalaryExpectation)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address.Name, "Street Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address.Name, "Street Name")
+            @Html.ValidationMessageFor(model => model.Address.Name, "Street Name")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address.Neighbourhood)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address.Neighbourhood)
+            @Html.ValidationMessageFor(model => model.Address.Neighbourhood)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address.CEP, "CEP")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address.CEP)
+            @Html.ValidationMessageFor(model => model.Address.CEP)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address.City, "City")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Address.CityId", "All")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Disposition.Name, "Disposition")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DispositionId")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RatingId, "Rating")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RatingId")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaritalStatusId, "Marital Status")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("MaritalStatusId")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RequisitionId, "Requisition")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RequisitionId")
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DisabilityId, "Disability")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DisabilityId")
+        </div>
+   @*     <h1>
+            Professional History
+        </h1>
+        @{ var count = 0; }
+        @foreach (var item in Model.Company)
+        {
+            {
+                count++;
+            }
+
+            if (count == 1)
+            {<h2>
+                Current Company</h2>
+            }
+            else
+            {<h2>
+                Past Company</h2>
+            }
+            <div class="editor-label">
+                @Html.Label("Company")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("companyName" + count, item.Name)
+            </div>
+            <div class="editor-label">
+                @Html.Label("City ")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("companyCityId" + count, GrouponJobsMVC.Views.Candidate.CandidateDropDown.CompanyCityEdit(Model.CandidateId, count), "All")
+            </div>
+            <div class="editor-label">
+                @Html.Label("Salary")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("companySalary" + count, item.Salary)
+            </div>
+        }
+        @{ var i = 0; }
+        @foreach (var item in Model.Courses)
+        {
+            <h2>
+                Courses
+                @{i++;
+                }
+                @i
+            </h2> 
+            
+                  if (i == 1)
+                  {
+            <h3>
+                Graduate</h3>
+            <div class="editor-field">
+                @Html.DropDownList("Graduate", GrouponJobsMVC.Views.Candidate.CandidateDropDown.Graduate(item.Graduate))
+            </div>
+                  }
+            <div class="editor-label">
+                @Html.Label("Course")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("coursesName" + i, item.Name)
+            </div>
+            <div class="editor-label">
+                @Html.Label("School Name")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("schoolName" + i, item.SchoolName)
+            </div>
+            <div class="editor-label">
+                @Html.Label("Start Date")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("start" + i, item.Start.Year)
+            </div>
+            <div class="editor-label">
+                @Html.Label("End Date")
+            </div>
+            <div class="editor-field">
+                @Html.TextBox("end" + i, item.End.Year)
+            </div>
+        }
+        @{ var j = 0; }
+        @foreach (var item in Model.Language)
+        {
+            <h2>
+                Language
+                @{j++;
+                }
+                @j
+            </h2> 
+                  if (j == 1)
+                  {
+            <h3>
+                Language</h3>
+            <div class="editor-field">
+                @Html.DropDownList("Language", GrouponJobsMVC.Views.Candidate.CandidateDropDown.LanguageNameEdit(item.CandidateId, j))
+            </div>
+            <div class="editor-label">
+                @Html.Label("Fluency")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("Fluency", GrouponJobsMVC.Views.Candidate.CandidateDropDown.Fluency(item.LanguageId))
+            </div>
+                  }
+        }*@
+        <h2>
+            Professional Experiences
+        </h2>
+        <h3>Languages</h3>
+        <div class="Languages">
+        @for (int i = 0; i < 2; i++)
+        {
+            @Html.HiddenFor(m => m.Language[i].LanguageId)
+            @Html.Label("Select Language:")<br />
+            @Html.DropDownListFor(m => m.Language[i], GrouponJobsMVC.Views.Candidate.CandidateDropDown.LanguageName())<br />
+            @Html.Label("Fluency:")<br />
+            @Html.DropDownListFor(m => m.Language[i].Fluency, new SelectList(new Dictionary<int, string> { { 0, "Basico" }, { 1, "Intermediario" }, { 2, "Avançado" }, { 3, "Fluente" } }, "Key", "Value"))<br />
+        }
+        </div>
+        <h3>
+            Company</h3>
+        <div class="Company">
+            @for (int i = 0; i < 2; i++)
+            {                
+                @Html.HiddenFor(m => m.Company[i].CompanyId)
+                @Html.HiddenFor(m => m.Company[i].NumberCompany, new { Value = i })
+                @Html.HiddenFor(m => m.Company[i].CandidateId)
+                @Html.Label("Company " + (i + 1) + "")<br />
+                @Html.Label("Company Name:")  <br />
+                @Html.TextBoxFor(m => m.Company[i].Name)<br />
+                @Html.Label("Company City:")<br />
+                @Html.DropDownListFor(m => m.Company[i].Address.CityId, GrouponJobsMVC.Views.Candidate.CandidateDropDown.CompanyCity())<br />
+                @Html.Label("Salary:")<br />
+                @Html.TextBoxFor(m => m.Company[i].Salary)<br />               
+
+            }
+        </div>
+        <h3>
+            Courses</h3>
+        <div class="Courses">
+            @for (int i = 0; i < 3; i++)
+            {                
+                @Html.HiddenFor(m => m.Courses[i].CoursesId)
+                @Html.HiddenFor(m => m.Courses[i].CandidateId)
+                @Html.HiddenFor(m => m.Courses[i].NumberCourses, new { Value = i })                
+                @Html.Label("Course " + (i + 1) + "")<br />
+                @Html.Label("Course Name:")  <br />
+                @Html.TextBoxFor(m => m.Courses[i].Name)<br />
+                @Html.Label("School Name:")<br />
+                @Html.TextBoxFor(m => m.Courses[i].SchoolName)<br />
+                @Html.Label("Course Start(Year):")<br />
+                @Html.TextBoxFor(m => m.Courses[i].Start, new { Class = "datepicker" })<br />
+                @Html.Label("Course End(Year):")<br />
+                @Html.TextBoxFor(m => m.Courses[i].End, new { Class = "datepicker" })<br />                
+
+            }
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
