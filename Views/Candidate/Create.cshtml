@@ -7,7 +7,6 @@
 <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/jquery-1.7.1.js")" type="text/javascript"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.8.18.custom.min.js")"></script>
-
 <script>
 
     $(function () {
@@ -15,15 +14,37 @@
             dateFormat: 'dd-mm-yy',
             yearRange: '-65:+5',
             minDate: new Date(1995, 10 - 1, 25),
-            changeYear: true,            
+            changeYear: true,
             maxDate: "+3Y"
         });
     });
-	</script>
+
+
+    $(document).ready(function () {
+        $('.saveButton').click(function () {
+            alert("AH");
+            var teste = "LOL";
+            alert(teste);
+            var form = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/Candidate/CompanyAdd",
+                //                data: $('#formCandidate').serialize(),
+                data: $('#formCandidate').serialize(),
+                success: function (result) {
+                    console.log(result); //log to the console to see whether it worked
+                },
+                error: function (error) {
+                    alert("There was an error posting the data to the server: " + error.responseText);
+                }
+            });
+        });
+    });
+</script>
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(false)
-    <fieldset>
+    <fieldset id="formCandidate">
         <legend>Candidate</legend>
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName, "First Name")
@@ -141,32 +162,36 @@
         <h2>
             Professional Experiences
         </h2>
-        <h3>Languages</h3>
+        <h3>
+            Languages</h3>
         <div class="Languages">
-        @for (int i = 0; i < 2; i++)
-        {
+            @for (int i = 0; i < 2; i++)
+            {
 
-            @Html.Label("Select Language:")<br />
-            @Html.DropDownListFor(m => m.Language[i], GrouponJobsMVC.Views.Candidate.CandidateDropDown.LanguageName())<br />
-            @Html.Label("Fluency:")<br />
-            @Html.DropDownListFor(m => m.Language[i].Fluency, new SelectList(new Dictionary<int, string> { { 0, "Basico" }, { 1, "Intermediario" }, { 2, "Avançado" }, { 3, "Fluente" } }, "Key", "Value"))<br />
-        }
+                @Html.Label("Select Language:")<br />
+                @Html.DropDownListFor(m => m.Language[i], GrouponJobsMVC.Views.Candidate.CandidateDropDown.LanguageName())<br />
+                @Html.Label("Fluency:")<br />
+                @Html.DropDownListFor(m => m.Language[i].Fluency, new SelectList(new Dictionary<int, string> { { 0, "Basico" }, { 1, "Intermediario" }, { 2, "Avançado" }, { 3, "Fluente" } }, "Key", "Value"))<br />
+            }
         </div>
         <h3>
             Company</h3>
         <div class="Company">
-            @for (int i = 0; i < 2; i++)
-            {               
-                @Html.HiddenFor(m => m.Company[i].NumberCompany, new { Value = i })
-                @Html.Label("Company " + (i + 1) + "")<br />
-                @Html.Label("Company Name:")  <br />
-                @Html.TextBoxFor(m => m.Company[i].Name)<br />
-                @Html.Label("Company City:")<br />
-                @Html.DropDownListFor(m => m.Company[i].Address.CityId, GrouponJobsMVC.Views.Candidate.CandidateDropDown.CompanyCity())<br />
-                @Html.Label("Salary:")<br />
-                @Html.TextBoxFor(m => m.Company[i].Salary)<br /><br />            
-
-            }
+            @*@for (int i = 0; i < 2; i++)
+            {     *@
+            @Html.HiddenFor(m => m.Company[0].NumberCompany)
+            @Html.Label("Add a Company")<br />
+            @Html.Label("Company Name:")
+            <br />
+            @Html.TextBoxFor(m => m.Company[0].Name)<br />
+            @Html.Label("Company City:")<br />
+            @Html.DropDownListFor(m => m.Company[0].Address.CityId, GrouponJobsMVC.Views.Candidate.CandidateDropDown.CompanyCity())<br />
+            @Html.Label("Salary:")<br />
+            @Html.TextBoxFor(m => m.Company[0].Salary)<br />
+            <br />
+            @*
+            }*@
+            @Html.ActionLink("Add Company", "CompanyAdd", "Candidate", null, new { @class = "saveButton", onclick = "return false;" })
         </div>
         <h3>
             Courses</h3>
@@ -182,7 +207,8 @@
                 @Html.Label("Course Start(Year):")<br />
                 @Html.TextBoxFor(m => m.Courses[i].Start, new { Class = "datepicker" })<br />
                 @Html.Label("Course End(Year):")<br />
-                @Html.TextBoxFor(m => m.Courses[i].End, new { Class = "datepicker" })<br /><br />                
+                @Html.TextBoxFor(m => m.Courses[i].End, new { Class = "datepicker" })<br />
+                <br />                
 
             }
         </div>

@@ -78,15 +78,17 @@ namespace GrouponJobsMVC.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.MaritalStatusId = CandidateDropDown.MaritalStatus();
-            ViewData["Address.CityId"] = CandidateDropDown.City();
-            ViewBag.RequisitionId = CandidateDropDown.Requisition();
-            ViewBag.DisabilityId = CandidateDropDown.Disability();
-            ViewBag.CompanyCityId = CandidateDropDown.CompanyCity();
-            ViewBag.CompanyCityId2 = CandidateDropDown.CompanyCity();
-            ViewBag.languageNameId = CandidateDropDown.LanguageName();
 
             return View();
+        }
+
+        //
+        // POST: Candidate CompanyAdd
+
+        [HttpPost]
+        public ActionResult CompanyAdd(Candidate collection)
+        {
+            return Json(new { success = true });
         }
 
         //
@@ -119,13 +121,6 @@ namespace GrouponJobsMVC.Controllers
         public ActionResult Edit(int id)
         {
 
-            ViewData["Address.CityId"] = CandidateDropDown.CityEdit(id);
-            ViewBag.MaritalStatusId = CandidateDropDown.MaritalStatusEdit(id);
-            ViewBag.DisabilityId = CandidateDropDown.DisabilityEdit(id);
-            ViewBag.RequisitionId = CandidateDropDown.RequisitionEdit(id);
-            ViewBag.RatingId = CandidateDropDown.RatingEdit(id);
-            ViewBag.DispositionId = CandidateDropDown.DispositionEdit(id);
-
             return View(db.Candidate.FirstOrDefault(x => x.CandidateId == id));
         }
 
@@ -134,137 +129,20 @@ namespace GrouponJobsMVC.Controllers
         // POST: /Candidate/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, Candidate collection, string languageName, string CityId, string graduate, string companyCityId, string companyCityId2, string companyName1, string companySalary1, string companyName2, string companySalary2, string coursesName1, string schoolName1, string start1, string end1, string coursesName2, string schoolName2, string start2, string end2, string coursesName3, string schoolName3, string start3, string end3)
+        public ActionResult Edit(int id, Candidate collection)
         {
             try
             {
-                // TODO: Add update logic here
-                Candidate obj = db.Candidate.FirstOrDefault(x => x.CandidateId == id);
-
-                obj.FirstName = collection.FirstName;
-                obj.LastName = collection.LastName;
-                obj.Email = collection.Email;
-                obj.HomePhone = collection.HomePhone;
-                obj.MobilePhone = collection.MobilePhone;
-                obj.Gender = collection.Gender;
-                obj.WillTravel = collection.WillTravel;
-                obj.LastSalary = collection.LastSalary;
-                obj.SalaryExpectation = collection.SalaryExpectation;
-                obj.DisabilityId = collection.DisabilityId;
-                obj.RequisitionId = collection.RequisitionId;
-                obj.AddressId = collection.AddressId;
-                obj.DispositionId = collection.DispositionId;
-                obj.MaritalStatusId = collection.MaritalStatusId;
-                obj.RatingId = collection.RatingId;
-                obj.Company = collection.Company;
-                obj.SalaryExpectation = collection.SalaryExpectation;
-                obj.LastSalary = collection.LastSalary;
-                obj.Courses = collection.Courses;
-                obj.Resume = collection.Resume;
-                obj.Address.CityId = collection.Address.CityId;
-                obj.Birthday = collection.Birthday;
-                Company company = new Company();
-                try
-                {
-                    obj.Company.FirstOrDefault(x => x.NumberCompany == 1).Address.CityId = int.Parse(companyCityId);
-                }
-                catch
-                {
-                }
-                try
-                {
-                    obj.Company.FirstOrDefault(x => x.NumberCompany == 2).Address.CityId = int.Parse(companyCityId2);
-                }
-                catch
-                {
-                }
-
-                Courses courses = new Courses();
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 1).Name = coursesName1;
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 2).Name = coursesName2;
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 3).Name = coursesName3;
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 1).SchoolName = schoolName1;
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 2).SchoolName = schoolName2;
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 3).SchoolName = schoolName3;
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 1).Start = DateTime.Parse(start1);
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 2).Start = DateTime.Parse(start2);
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 3).Start = DateTime.Parse(start3);
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 1).End = DateTime.Parse(end1);
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 2).End = DateTime.Parse(end2);
-                }
-                catch
-                { }
-                try
-                {
-                    obj.Courses.FirstOrDefault(x => x.NumberCourses == 3).End = DateTime.Parse(end3);
-                }
-                catch
-                { }
-                obj.Courses.FirstOrDefault(x => x.NumberCourses == 1).Graduate = int.Parse(graduate);
-                Language language = new Language();
-                try
-                {
-                    obj.Language.FirstOrDefault(x => x.NumberLanguage == 1).Name = languageName;
-                }
-                catch { }
+                collection.LastUpdated = DateTime.Now;
+                db.Candidate.Attach(collection);
+                db.Entry(collection).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.ErroAtualizar = "Erro ao atualizar o candidato!";
+                return View(db.Candidate.FirstOrDefault(x =>x.CandidateId == id));
             }
         }
 
